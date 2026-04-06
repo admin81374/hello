@@ -1,0 +1,40 @@
+su hduser_
+sudo service ssh restart
+ssh localhost
+start-dfs.sh
+start-yarn.sh
+jps
+mkdir MapReduce
+cd MapReduce
+
+touch data.txt
+nano data,txt
+Apple
+mango 
+banana
+cherry
+watermelon
+
+cat data.txt
+
+touch mapper_sort.py
+nano mapper_sort.py
+import sys
+for line in sys.stdin:
+	line = line.strip()
+	print(line)
+
+cat data.txt | python3 mapper_sort.py
+
+touch reducer_sort.py
+nano reducer_sort.py
+import sys
+sorted_line = []
+for line in sys.stdin:
+	word=line.strip()
+	sorted_line.append(word)
+sorted_line.sort()
+for line in sorted_line:
+	print(line)
+
+cat data.txt | python3 mapper_sort.py | python3 reducer_sort
