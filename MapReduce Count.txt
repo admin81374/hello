@@ -1,0 +1,38 @@
+su hduser_
+sudo service ssh restart
+ssh localhost
+start-dfs.sh
+start-yarn.sh
+jps
+mkdir MapReduce
+cd MapReduce
+
+touch data.txt
+nano data,txt
+Train Bus 
+Car bus train
+Car Train Bus Train
+
+cat data.txt
+
+touch mapper.py
+nano mapper.py
+import sys
+from line in sys.stdin:
+	line = line.strip()
+	word = line.split()
+	from word in words:
+	   print("%s\t%d",%(word,1))
+cat data.txt | python3 mapper.py
+
+touch reducer.py
+nano reducer.py
+import sys
+word_count={}
+from line in sys.stdin:
+	word,count=line.strip().split("\t")
+	word_count[word]=word_count.get(word,0)+int(count)
+for word,count in word_count.items():
+	print(f"{word}\t{count}")
+
+cat data.txt | python3 mapper.py | python3 reducer.py
