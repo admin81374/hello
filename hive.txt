@@ -1,0 +1,55 @@
+su hduser_
+sudo service ssh restart
+ssh localhost
+start-all.sh
+jps
+
+cd home/hduser_
+sudo nano sample1.txt
+1 name number IT
+2
+3
+4
+
+cat part-r-00000 
+cd /usr/local
+sudo wget https://archive.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
+sudo tar -xvzf apache-hive-3.1.2-bin.tar.gz
+ls
+sudo mv apache-hive-3.1.2-bin hive 
+ls
+sudo chmod 777 hive
+
+cd /home/hduser_
+nano .bashrc
+export HIVE_HOME=/usr/local/hive
+export PATH=$PATH:$HIVE_HOME/bin
+source .bashrc
+
+cd /usr/local/hive/bin
+sudo nano hive-config.sh
+export HADOOP_HOME=/usr/local/hadoop
+hdfs dfs -mkdir /tmp
+cd
+hdfs dfs -chmod g+w /tmp
+hdfs dfs -ls /
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -chmod g+w /user/hive/warehouse
+hdfs dfs -ls /user/hive
+/usr/local/hive/bin/schematool -initSchema -dbType derby
+
+cd $HIVE_HOME
+bin/schematool -dbType derby -initSchema
+cd /usr/local/hive 
+rm -rf metastore_db 
+rm -rf derby.log
+bin/schematool -dbType derby -initSchema
+hive
+
+CREATE TABLE IF NOT EXISTS employee (eid INT,name STRING,salary STRING,designation STRING) COMMENT 'Employee details' ROW FORMAT DELIMITED FIELDS TERMINATED BY ' ' STORED AS TEXTFILE;
+LOAD DATA LOCAL INPATH '/home/hduser_zoya/sample.txt' OVERWRITE INTO TABLE employee;
+select * from employee;
+quit;
+
+
+
