@@ -1,0 +1,46 @@
+su hduser_
+sudo service ssh restart
+ssh localhost
+start-all.sh
+jps
+
+cd home/hduser_
+sudo nano sample1.txt
+1,name,number,IT
+2
+3
+4
+
+cd/usr/local
+sudo wget https://downloads.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz 
+sudo tar -xvzf pig-0.17.0.tar.gz
+ls
+sudo mv pig-0.17.0 pig
+ls
+sudo chmod 777 pig
+
+cd /home/hduser_zoya
+nano .bashrc
+export PATH=$PATH:$HADOOP_HOME/bin 
+export PATH=$PATH:$HADOOP_HOME/sbin 
+export PATH=$PATH:/usr/local/pig/bin 
+export PIG_HOME=/usr/local/pig 
+export PIG_CLASSPATH=/usr/local/hadoop/etc/hadoop  
+
+source .bashrc
+pig -version 
+pig -x local 
+pig
+quit
+
+pig -x local
+grunt>Employees2 = LOAD 'sample1.txt' USING PigStorage(',') as (id:int, firstname:chararray, salary:int, Dept:chararray); 
+grunt> Dump Employees2; 
+Emp_sort = ORDER Employees2 BY salary DESC; 
+STORE Emp_sort INTO 'output1'; 
+quit
+
+ls
+cd output1
+ls
+cat part-r-00000 
